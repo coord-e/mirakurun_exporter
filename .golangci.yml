@@ -1,0 +1,14 @@
+linters:
+  enable:
+    - gci
+    - gofmt
+    - gosec
+    - unconvert
+
+linters-settings:
+  errcheck:
+    exclude-functions:
+      - (github.com/go-kit/kit/log.Logger).Log
+
+  gci:
+    local-prefixes: github.com/coord-e/mirakurun_exporter
