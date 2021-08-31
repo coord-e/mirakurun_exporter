@@ -1,0 +1,38 @@
+on:
+  push:
+    tags: ['*']
+
+name: release
+
+jobs:
+  release:
+    name: release
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        os: [linux]
+        arch:
+          - amd64
+          - arm
+          - arm64
+    env:
+      GOOS: '${{ matrix.os }}'
+      GOARCH: '${{ matrix.arch }}'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.17'
+      - run: make build RELEASE=1
+      - run: |
+          name=mirakurun_exporter-v$(cat VERSION).$GOOS-$GOARCH
+          mkdir "$name"
+          mv README.md "${name}/"
+          mv LICENSE "${name}/"
+          mv mirakurun_exporter "${name}/"
+          tar cf "$name.tar.gz" "$name"
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: mirakurun_exporter-*.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
