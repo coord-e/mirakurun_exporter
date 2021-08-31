@@ -22,10 +22,10 @@ type Exporter struct {
 	ctx    context.Context
 	logger log.Logger
 
-	status *statusExporter
-	tuners *tunersExporter
-	// programs *programsExporter
-	// services *servicesExporter
+	status   *statusExporter
+	tuners   *tunersExporter
+	programs *programsExporter
+	services *servicesExporter
 }
 
 // Verify if Exporter implements prometheus.Collector
@@ -42,23 +42,23 @@ func New(ctx context.Context, client *mirakurun.Client, config Config, logger lo
 		tunersExporter = newTunersExporter(ctx, client, logger)
 	}
 
-	// var programsExporter *programsExporter
-	// if config.FetchPrograms {
-	// 	programsExporter := newProgramsExporter(ctx, client, logger)
-	// }
+	var programsExporter *programsExporter
+	if config.FetchPrograms {
+		programsExporter = newProgramsExporter(ctx, client, logger)
+	}
 
-	// var servicesExporter *servicesExporter
-	// if config.FetchServices {
-	// 	servicesExporter := newServicesExporter(ctx, client, logger)
-	// }
+	var servicesExporter *servicesExporter
+	if config.FetchServices {
+		servicesExporter = newServicesExporter(ctx, client, logger)
+	}
 
 	return &Exporter{
-		ctx:    ctx,
-		logger: logger,
-		status: statusExporter,
-		tuners: tunersExporter,
-		// programs: programsExporter,
-		// services: servicesExporter,
+		ctx:      ctx,
+		logger:   logger,
+		status:   statusExporter,
+		tuners:   tunersExporter,
+		programs: programsExporter,
+		services: servicesExporter,
 	}
 }
 
@@ -69,12 +69,12 @@ func (e *Exporter) Describe(ch chan<- *prometheus.Desc) {
 	if e.tuners != nil {
 		e.tuners.Describe(ch)
 	}
-	// if e.programs != nil {
-	// 	e.programs.Describe(ch)
-	// }
-	// if e.services != nil {
-	// 	e.services.Describe(ch)
-	// }
+	if e.programs != nil {
+		e.programs.Describe(ch)
+	}
+	if e.services != nil {
+		e.services.Describe(ch)
+	}
 }
 
 func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
@@ -84,10 +84,10 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 	if e.tuners != nil {
 		e.tuners.Collect(ch)
 	}
-	// if e.programs != nil {
-	// 	e.programs.Collect(ch)
-	// }
-	// if e.services != nil {
-	// 	e.services.Collect(ch)
-	// }
+	if e.programs != nil {
+		e.programs.Collect(ch)
+	}
+	if e.services != nil {
+		e.services.Collect(ch)
+	}
 }
