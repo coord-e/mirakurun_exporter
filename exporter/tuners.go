@@ -116,7 +116,7 @@ func (e *tunersExporter) Collect(ch chan<- prometheus.Metric) {
 
 	var availableFree, availableUsed, fault, remote, gr, bs, cs, sky int
 	users := map[string]int{}
-	drops := map[string]int{}
+	drops := map[string]int64{}
 	for _, tuner := range *tuners {
 		if tuner.IsFree {
 			availableFree++

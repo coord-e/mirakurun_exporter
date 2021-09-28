@@ -52,9 +52,9 @@ type TunersResponse []struct {
 			ParseSDT  *bool `json:"parseSDT"`
 			ParseNIT  *bool `json:"parseNIT"`
 		} `json:"streamSetting"`
-		StreamInfo *map[int]struct {
-			Packet int `json:"packet"`
-			Drop   int `json:"drop"`
+		StreamInfo *map[uint16]struct {
+			Packet int64 `json:"packet"`
+			Drop   int64 `json:"drop"`
 		} `json:"streamInfo"`
 	} `json:"users"`
 	IsAvailable bool `json:"isAvailable"`
