@@ -38,6 +38,7 @@ type tunersExporter struct {
 	tunerDevices          *prometheus.Desc
 	users                 *prometheus.Desc
 	streamDrops           *prometheus.Desc
+	streamPackets         *prometheus.Desc
 }
 
 // Verify if tunersExporter implements prometheus.Collector
@@ -91,6 +92,10 @@ func newTunersExporter(ctx context.Context, client *mirakurun.Client, logger log
 			prometheus.BuildFQName(namespace, subsystem, "stream_drops_total"),
 			"Total number of drops in a TS stream of Mirakurun labeled by tuner device name.",
 			[]string{"tuner_device"}, nil),
+		streamPackets: prometheus.NewDesc(
+			prometheus.BuildFQName(namespace, subsystem, "stream_packets_total"),
+			"Total number of packets in a TS stream of Mirakurun labeled by tuner device name.",
+			[]string{"tuner_device"}, nil),
 	}
 }
 
@@ -105,6 +110,7 @@ func (e *tunersExporter) Describe(ch chan<- *prometheus.Desc) {
 	ch <- e.tunerDevices
 	ch <- e.users
 	ch <- e.streamDrops
+	ch <- e.streamPackets
 }
 
 func (e *tunersExporter) Collect(ch chan<- prometheus.Metric) {
@@ -117,6 +123,7 @@ func (e *tunersExporter) Collect(ch chan<- prometheus.Metric) {
 	var availableFree, availableUsed, fault, remote, gr, bs, cs, sky int
 	users := map[string]int{}
 	drops := map[string]int64{}
+	packets := map[string]int64{}
 	for _, tuner := range *tuners {
 		if tuner.IsFree {
 			availableFree++
@@ -146,6 +153,7 @@ func (e *tunersExporter) Collect(ch chan<- prometheus.Metric) {
 		}
 		users[tuner.Name] = 0
 		drops[tuner.Name] = 0
+		packets[tuner.Name] = 0
 		for _, user := range tuner.Users {
 			users[tuner.Name]++
 
@@ -154,6 +162,7 @@ func (e *tunersExporter) Collect(ch chan<- prometheus.Metric) {
 			}
 			for _, info := range *user.StreamInfo {
 				drops[tuner.Name] += info.Drop
+				packets[tuner.Name] += info.Packet
 			}
 		}
 	}
@@ -172,5 +181,8 @@ func (e *tunersExporter) Collect(ch chan<- prometheus.Metric) {
 	}
 	for tunerDevice, count := range drops {
 		ch <- prometheus.MustNewConstMetric(e.streamDrops, prometheus.CounterValue, float64(count), tunerDevice)
+	}
+	for tunerDevice, count := range packets {
+		ch <- prometheus.MustNewConstMetric(e.streamPackets, prometheus.CounterValue, float64(count), tunerDevice)
 	}
 }
