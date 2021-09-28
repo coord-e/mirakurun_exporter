@@ -41,5 +41,5 @@ $ mirakurun_exporter --exporter.mirakurun-path=http://localhost:40772/
 ## Build
 
 ```shell
-make build
+$ make build
 ```
