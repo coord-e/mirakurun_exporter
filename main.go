@@ -16,6 +16,7 @@ package main
 import (
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/go-kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
@@ -85,7 +86,10 @@ func main() {
 	http.Handle(*metricPath, promhttp.InstrumentMetricHandler(prometheus.DefaultRegisterer, handler))
 
 	level.Info(logger).Log("msg", "Listening on", "address", *listenAddress)
-	server := &http.Server{Addr: *listenAddress}
+	server := &http.Server{
+		ReadHeaderTimeout: 5 * time.Second,
+		Addr:              *listenAddress,
+	}
 	if err := web.ListenAndServe(server, *webConfig, logger); err != nil {
 		level.Error(logger).Log("err", err)
 		os.Exit(1)
