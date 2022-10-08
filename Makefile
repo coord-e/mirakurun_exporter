@@ -6,7 +6,7 @@ build: $(BIN)
 GO_FILES := $(shell find . -type f -name '*.go' -print)
 
 ifdef RELEASE
-	GO_LDFLAGS += -w -s -extldflags '-static'
+	GO_LDFLAGS += -w -s
 	GO_FLAGS += -a -installsuffix netgo
 	GO_BUILD_TAGS := netgo
 endif
