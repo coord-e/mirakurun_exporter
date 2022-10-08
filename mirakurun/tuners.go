@@ -15,8 +15,7 @@ package mirakurun
 
 import (
 	"context"
-
-	"github.com/pkg/errors"
+	"fmt"
 )
 
 type TunersResponse []struct {
@@ -67,21 +66,21 @@ type TunersResponse []struct {
 func (c *Client) GetTuners(ctx context.Context) (*TunersResponse, error) {
 	req, err := c.newRequest(ctx, "GET", "/api/tuners", nil)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to create new request")
+		return nil, fmt.Errorf("failed to create new request: %w", err)
 	}
 
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to dispatch request")
+		return nil, fmt.Errorf("failed to dispatch request: %w", err)
 	}
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		return nil, errors.Errorf("non-success status code %d", resp.StatusCode)
+		return nil, fmt.Errorf("non-success status code %d", resp.StatusCode)
 	}
 
 	var tuners TunersResponse
 	if err := decodeBody(resp, &tuners); err != nil {
-		return nil, errors.Wrap(err, "failed to decode response body")
+		return nil, fmt.Errorf("failed to decode response body: %w", err)
 	}
 
 	return &tuners, nil

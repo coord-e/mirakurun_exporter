@@ -16,7 +16,6 @@ package mirakurun
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -49,7 +48,7 @@ type Client struct {
 
 func NewClient(urlString string) (*Client, error) {
 	if len(urlString) == 0 {
-		return nil, errors.New("missing URL")
+		return nil, fmt.Errorf("missing URL")
 	}
 
 	parsedURL, err := url.Parse(urlString)
