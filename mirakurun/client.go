@@ -25,7 +25,7 @@ import (
 	"runtime/debug"
 	"strings"
 
-	"github.com/go-kit/kit/log"
+	"github.com/go-kit/log"
 	"github.com/hashicorp/go-cleanhttp"
 )
 

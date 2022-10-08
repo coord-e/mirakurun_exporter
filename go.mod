@@ -3,7 +3,7 @@ module github.com/coord-e/mirakurun_exporter
 go 1.17
 
 require (
-	github.com/go-kit/kit v0.11.0
+	github.com/go-kit/log v0.1.0
 	github.com/hashicorp/go-cleanhttp v0.5.1
 	github.com/prometheus/client_golang v1.11.0
 	github.com/prometheus/common v0.30.0
@@ -16,7 +16,6 @@ require (
 	github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.1 // indirect
-	github.com/go-kit/log v0.1.0 // indirect
 	github.com/go-logfmt/logfmt v0.5.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/jpillora/backoff v1.0.0 // indirect
