@@ -1,10 +1,10 @@
 # Mirakurun Exporter
 
 [![CI](https://github.com/coord-e/mirakurun_exporter/actions/workflows/ci.yml/badge.svg)](https://github.com/coord-e/mirakurun_exporter/actions/workflows/ci.yml)
-[![Release](https://github.com/coord-e/mirakurun_exporter/actions/workflows/release.yml/badge.svg)](https://github.com/coord-e/mirakurun_exporter/actions/workflows/release.yml)
 
 Prometheus exporter for [Mirakurun](https://github.com/Chinachu/Mirakurun) metrics.
 Pre-built binaries are available at [the releases](https://github.com/coord-e/mirakurun_exporter/releases).
+Container images are available at [the packages](https://github.com/coord-e?tab=packages&repo_name=mirakurun_exporter).
 
 ## Usage
 
