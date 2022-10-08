@@ -41,8 +41,8 @@ var (
 	listenAddress = kingpin.Flag("web.listen-address", "The address to listen on for HTTP requests.").Default(":9110").String()
 	metricPath    = kingpin.Flag("web.telemetry-path",
 		"Path under which to expose metrics.").Default("/metrics").String()
-	mirakurunPath = kingpin.Flag("exporter.mirakurun-path",
-		"Path to the Mirakurun instance.").Required().String()
+	mirakurunURL = kingpin.Flag("exporter.mirakurun-url",
+		"URL of the Mirakurun instance.").Required().String()
 	fetchStatus = kingpin.Flag("exporter.status",
 		"Whether to export metrics from /api/status.").Default("true").Bool()
 	fetchTuners = kingpin.Flag("exporter.tuners",
@@ -63,7 +63,7 @@ func main() {
 
 	level.Info(logger).Log("msg", "Starting mirakurun_exporter", "version", BuildVersion, "commit", BuildCommitSha)
 
-	client, err := mirakurun.NewClient(*mirakurunPath)
+	client, err := mirakurun.NewClient(*mirakurunURL)
 	if err != nil {
 		level.Error(logger).Log("msg", "failed to create Mirakurun client", "err", err)
 		os.Exit(1)

@@ -8,9 +8,9 @@ Container images are available at [the packages](https://github.com/coord-e?tab=
 
 ## Usage
 
-```shell
+```
 $ mirakurun_exporter -h
-usage: mirakurun_exporter --exporter.mirakurun-path=EXPORTER.MIRAKURUN-PATH [<flags>]
+usage: mirakurun_exporter --exporter.mirakurun-url=EXPORTER.MIRAKURUN-URL [<flags>]
 
 Flags:
   -h, --help                Show context-sensitive help (also try --help-long and --help-man).
@@ -19,8 +19,8 @@ Flags:
                             The address to listen on for HTTP requests.
       --web.telemetry-path="/metrics"
                             Path under which to expose metrics.
-      --exporter.mirakurun-path=EXPORTER.MIRAKURUN-PATH
-                            Path to the Mirakurun instance.
+      --exporter.mirakurun-url=EXPORTER.MIRAKURUN-URL
+                            URL of the Mirakurun instance.
       --exporter.status     Whether to export metrics from /api/status.
       --exporter.tuners     Whether to export metrics from /api/tuners.
       --exporter.programs   Whether to export metrics from /api/programs.
@@ -34,12 +34,12 @@ Flags:
 
 To run against a Mirakurun instance running at `localhost:40772`:
 
-```shell
-$ mirakurun_exporter --exporter.mirakurun-path=http://localhost:40772/
+```
+$ mirakurun_exporter --exporter.mirakurun-url=http://localhost:40772/
 ```
 
 ## Build
 
-```shell
+```
 $ make build
 ```
