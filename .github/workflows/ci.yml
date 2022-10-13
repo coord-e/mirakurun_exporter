@@ -53,16 +53,16 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: mirakurun_exporter-${{ matrix.os }}-${{ matrix.arch }}
-      - run: |
+      - env:
+          GOOS: '${{ matrix.os }}'
+          GOARCH: '${{ matrix.arch }}'
+        run: |
           name=mirakurun_exporter-$(cat VERSION).$GOOS-$GOARCH
           mkdir "$name"
           mv README.md "${name}/"
-          mv LICENSE "${name}/"
+          chmod +x mirakurun_exporter
           mv mirakurun_exporter "${name}/"
           tar cf "$name.tar.gz" "$name"
-        env:
-          GOOS: '${{ matrix.os }}'
-          GOARCH: '${{ matrix.arch }}'
       - uses: softprops/action-gh-release@v1
         with:
           files: mirakurun_exporter-*.tar.gz
