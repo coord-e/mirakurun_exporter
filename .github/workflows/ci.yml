@@ -104,9 +104,9 @@ jobs:
         id: select-tags
         run: |
           if [ "$GITHUB_REF_TYPE" == tag ]; then
-            echo "::set-output name=tags::$IMAGE_REPOSITORY:latest,$IMAGE_REPOSITORY:$(cat VERSION)"
+            echo "tags=$IMAGE_REPOSITORY:latest,$IMAGE_REPOSITORY:$(cat VERSION)" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=tags::$IMAGE_REPOSITORY:$GITHUB_SHA,$IMAGE_REPOSITORY:$GITHUB_REF_NAME"
+            echo "tags=$IMAGE_REPOSITORY:$GITHUB_SHA,$IMAGE_REPOSITORY:$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
           fi
       - uses: docker/build-push-action@v3
         with:
