@@ -8,7 +8,7 @@ Container images are available at [the packages](https://github.com/coord-e?tab=
 
 ## Usage
 
-```
+```console
 $ mirakurun_exporter -h
 usage: mirakurun_exporter --exporter.mirakurun-url=EXPORTER.MIRAKURUN-URL [<flags>]
 
@@ -38,12 +38,12 @@ Flags:
 
 To run against a Mirakurun instance running at `localhost:40772`:
 
-```
+```console
 $ mirakurun_exporter --exporter.mirakurun-url=http://localhost:40772/
 ```
 
 ## Build
 
-```
+```console
 $ make build
 ```
