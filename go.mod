@@ -3,17 +3,15 @@ module github.com/coord-e/mirakurun_exporter
 go 1.19
 
 require (
+	github.com/alecthomas/kingpin/v2 v2.3.2
 	github.com/go-kit/log v0.2.1
 	github.com/hashicorp/go-cleanhttp v0.5.2
 	github.com/prometheus/client_golang v1.14.0
 	github.com/prometheus/common v0.41.0
 	github.com/prometheus/exporter-toolkit v0.9.1
-	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
 
 require (
-	github.com/alecthomas/kingpin/v2 v2.3.2 // indirect
-	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
 	github.com/alecthomas/units v0.0.0-20211218093645-b94a6e3cc137 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect

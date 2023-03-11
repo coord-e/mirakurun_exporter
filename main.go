@@ -18,6 +18,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/alecthomas/kingpin/v2"
 	"github.com/go-kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -25,7 +26,6 @@ import (
 	"github.com/prometheus/common/promlog/flag"
 	"github.com/prometheus/exporter-toolkit/web"
 	webflag "github.com/prometheus/exporter-toolkit/web/kingpinflag"
-	"gopkg.in/alecthomas/kingpin.v2"
 
 	"github.com/coord-e/mirakurun_exporter/exporter"
 	"github.com/coord-e/mirakurun_exporter/mirakurun"
