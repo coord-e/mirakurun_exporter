@@ -63,12 +63,11 @@ jobs:
           chmod +x mirakurun_exporter
           mv mirakurun_exporter "${name}/"
           tar cf "$name.tar.gz" "$name"
-      - env:
-          FILES: mirakurun_exporter-*.tar.gz
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release create -n "" "$GITHUB_REF_NAME" $FILES \
-             || gh release upload "$GITHUB_REF_NAME" $FILES
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: mirakurun_exporter-*.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   build_container_image:
     name: build container image
     if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main')
